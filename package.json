@@ -1,0 +1,33 @@
+{
+  "name": "grunt-node_modules-amd",
+  "version": "1.0.0",
+  "description": "A task to build AMD dependencies out into a simple tree from node_modules packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krakenjs/grunt-node_modules-amd.git"
+  },
+  "keywords": [
+    "grunt",
+    "amd",
+    "npm",
+    "node_modules",
+    "requirejs"
+  ],
+  "author": "Aria Stewart <ariastewart@paypal.com>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/krakenjs/grunt-node_modules-amd/issues"
+  },
+  "homepage": "https://github.com/krakenjs/grunt-node_modules-amd#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "tape": "^4.0.0"
+  },
+  "dependencies": {
+    "read-package-tree": "^4.0.1"
+  }
+}
