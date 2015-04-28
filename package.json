@@ -28,6 +28,8 @@
     "tape": "^4.0.0"
   },
   "dependencies": {
-    "read-package-tree": "^4.0.1"
+    "iferr": "^0.1.5",
+    "read-package-tree": "^4.0.1",
+    "rsvp": "^3.0.18"
   }
 }
