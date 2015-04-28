@@ -2,6 +2,7 @@ var rpt = require('read-package-tree');
 var iferr = require('iferr');
 var rsvp = require('rsvp');
 var path = require('path');
+var selectFiles = require('./select-files');
 
 function collectAMD(root) {
     return new rsvp.Promise(function (accept, reject) {
@@ -53,15 +54,17 @@ function collectFiles(root) {
         if (pkg.files) {
             return pkg;
         } else {
-            return new rsvp.Promise(function (accept, reject) {
-                console.log(pkg, root);
-                accept(pkg);
+            return selectFiles(path.resolve(root, pkg.location)).then(function (files) {
+                pkg.files = files;
+                return pkg;
             });
         }
     };
 }
 
 module.exports = function copyAMDTo(root, dir) {
-    return collectAMD(root).then(collectFiles(root))//.then(copyTo(dir));
+    return collectAMD(root).then(function (pkgs) {
+        return rsvp.map(pkgs, collectFiles(root));
+    })//.then(copyTo(dir));
 };
 
