@@ -3,6 +3,7 @@ var iferr = require('iferr');
 var rsvp = require('rsvp');
 var path = require('path');
 var selectFiles = require('./select-files');
+var copyDir = require('copy-dir');
 
 function collectAMD(root) {
     return new rsvp.Promise(function (accept, reject) {
@@ -62,9 +63,25 @@ function collectFiles(root) {
     };
 }
 
+function copyFromTo(root, dir) {
+    return function (pkgs) {
+        return rsvp.all(pkgs.map(function (pkg) {
+            var target = path.resolve(dir, pkg.name);
+            var source = path.resolve(root, pkg.location);
+            return new rsvp.Promise(function (accept, reject) {
+                copyDir(source, target, function (stat, p, file) {
+                    return ~pkg.files.indexOf(file);
+                }, iferr(reject, accept));
+            }).then(function () {
+                return pkg;
+            });
+        }));
+    };
+}
+
 module.exports = function copyAMDTo(root, dir) {
     return collectAMD(root).then(function (pkgs) {
         return rsvp.map(pkgs, collectFiles(root));
-    })//.then(copyTo(dir));
+    }).then(copyFromTo(root, dir));
 };
 

@@ -24,10 +24,11 @@
   },
   "homepage": "https://github.com/krakenjs/grunt-node_modules-amd#readme",
   "devDependencies": {
-    "grunt": "^0.4.5",
+    "rimraf": "^2.3.2",
     "tape": "^4.0.0"
   },
   "dependencies": {
+    "copy-dir": "0.0.7",
     "iferr": "^0.1.5",
     "read-package-tree": "^4.0.1",
     "rsvp": "^3.0.18"
