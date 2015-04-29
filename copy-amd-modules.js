@@ -8,6 +8,6 @@ if (process.argv.length === 4) {
         process.exit(1);
     });
 } else {
-    console.warn("Use: " + process.argv.slice(0, 2).join(" ") + "source target");
+    console.warn("Use: " + process.argv.slice(0, 2).join(" ") + " source target");
     process.exit(2);
 }
