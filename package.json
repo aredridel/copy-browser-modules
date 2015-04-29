@@ -6,6 +6,9 @@
   "scripts": {
     "test": "tape test.js"
   },
+  "bin": {
+      "copy-amd-modules": "copy-amd-modules.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krakenjs/copy-amd-modules.git"
