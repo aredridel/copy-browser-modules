@@ -4,6 +4,7 @@ var rsvp = require('rsvp');
 var path = require('path');
 var selectFiles = require('./select-files');
 var copyDir = require('copy-dir');
+var fs = require('fs');
 
 function collectAMD(root) {
     return new rsvp.Promise(function (accept, reject) {
@@ -63,6 +64,12 @@ function collectFiles(root) {
     };
 }
 
+function writeJSON(file, data) {
+    return new rsvp.Promise(function (a, r) {
+        fs.writeFile(file, JSON.stringify(data), iferr(r, a));
+    });
+}
+
 function copyFromTo(root, dir) {
     return function (pkgs) {
         return rsvp.all(pkgs.map(function (pkg) {
@@ -72,6 +79,8 @@ function copyFromTo(root, dir) {
                 copyDir(source, target, function (stat, p, file) {
                     return ~pkg.files.indexOf(file);
                 }, iferr(reject, accept));
+            }).then(function () {
+                return writeJSON(path.resolve(target, 'package.json'), pkg);
             }).then(function () {
                 return pkg;
             });
