@@ -8,15 +8,17 @@ var fs = require('fs');
 
 function collectAMD(root) {
     return new rsvp.Promise(function (accept, reject) {
-        rpt(root, iferr(reject, function (data) {
+        rpt(root, iferr(reject, function (rootPkg) {
             var out = [];
             var packages = {};
             var duplicates = {};
-            data.children.forEach(processPackage);
+            var overrides = (rootPkg.package.amd && rootPkg.package.amd.overrides) || {};
+            rootPkg.children.forEach(processPackage);
 
             function processPackage(c) {
-                if (!c.package.amd) return;
-                var pkg = typeof c.package.amd === 'object' ? extendedMinusAMD(c.package, c.package.amd) : c.package;
+                var amd = overrides[c.package.name] || c.package.amd;
+                if (!amd) return;
+                var pkg = typeof amd === 'object' ? extendedMinusAMD(c.package, amd) : c.package;
                 var pkgroot = c.path;
 
                 if (packages[c.package.name]) {

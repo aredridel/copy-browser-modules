@@ -9,12 +9,14 @@ var fs = require('fs');
 test('trivial', function (t) {
     copyAMDTo(path.resolve(__dirname, 'test-fixtures/trivial'), 'tmp').then(function (d) {
         t.ok(d);
+        return checkExists('tmp');
     }).catch(t.error).finally(cleanup).finally(t.end);
 });
 
 test('nested', function (t) {
     copyAMDTo(path.resolve(__dirname, 'test-fixtures/nested'), 'tmp').then(function (d) {
         t.ok(d);
+        return checkExists('tmp');
     }).catch(t.error).finally(cleanup).finally(t.end);
 });
 
@@ -22,6 +24,13 @@ test('irrelevant modules excluded', function (t) {
     copyAMDTo(path.resolve(__dirname, 'test-fixtures/irrelevant'), 'tmp').then(function (d) {
         t.ok(d);
         return checkNotExists('tmp/irrelevant1');
+    }).catch(t.error).finally(cleanup).finally(t.end);
+});
+
+test('overrides work', function (t) {
+    copyAMDTo(path.resolve(__dirname, 'test-fixtures/override'), 'tmp').then(function (d) {
+        t.ok(d);
+        return checkExists('tmp/component1');
     }).catch(t.error).finally(cleanup).finally(t.end);
 });
 
@@ -49,6 +58,18 @@ function checkNotExists(file) {
                 }
             } else {
                 r(new Error("File exists: " + file));
+            }
+        });
+    });
+}
+
+function checkExists(file) {
+    return new Promise(function (a, r) {
+        fs.stat(file, function (err) {
+            if (err) {
+                r(err);
+            } else {
+                a();
             }
         });
     });
