@@ -4,7 +4,8 @@
   "description": "A task to build browser dependencies out into a simple tree from node_modules packages",
   "main": "index.js",
   "scripts": {
-    "test": "tap test.js"
+    "test": "nyc tap test.js && nyc report",
+    "report": "nyc report --reporter=lcov"
   },
   "bin": {
     "copy-browser-modules": "copy-browser-modules.js"
@@ -23,6 +24,7 @@
   "author": "Aria Stewart <ariastewart@paypal.com>",
   "license": "Apache-2.0",
   "devDependencies": {
+    "nyc": "^2.3.0",
     "rimraf": "^2.3.2",
     "tap": "^1.2.0"
   },

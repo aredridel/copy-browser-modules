@@ -4,3 +4,5 @@
 
 tmp
 .settings
+coverage
+.nyc_output
