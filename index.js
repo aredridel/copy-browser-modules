@@ -6,19 +6,19 @@ var selectFiles = require('./select-files');
 var copyDir = require('copy-dir');
 var fs = require('fs');
 
-function collectAMD(root) {
+function collectBrowser(root) {
     return new rsvp.Promise(function (accept, reject) {
         rpt(root, iferr(reject, function (rootPkg) {
             var out = [];
             var packages = {};
             var duplicates = {};
-            var overrides = (rootPkg.package.amd && rootPkg.package.amd.overrides) || {};
+            var overrides = (rootPkg.package.browser && rootPkg.package.browser.overrides) || {};
             rootPkg.children.forEach(processPackage);
 
             function processPackage(c) {
-                var amd = overrides[c.package.name] || c.package.amd;
-                if (!amd) return;
-                var pkg = typeof amd === 'object' ? extendedMinusAMD(c.package, amd) : c.package;
+                var browser = overrides[c.package.name] || c.package.browser || (c.package.keywords && ~c.package.keywords.indexOf("browser"));
+                if (!browser) return;
+                var pkg = typeof browser === 'object' ? extendedMinusBrowser(c.package, browser) : c.package;
                 var pkgroot = c.path;
 
                 if (packages[c.package.name]) {
@@ -42,11 +42,11 @@ function collectAMD(root) {
     });
 }
 
-function extendedMinusAMD(/* ... */) {
+function extendedMinusBrowser(/* ... */) {
     var out = {};
     for (var i = 0; i < arguments.length; i++) {
         for (var k in arguments[i]) {
-            if (k === 'amd') continue;
+            if (k === 'browser') continue;
             out[k] = arguments[i][k];
         }
     }
@@ -90,8 +90,8 @@ function copyFromTo(root, dir) {
     };
 }
 
-module.exports = function copyAMDTo(root, dir) {
-    return collectAMD(root).then(function (pkgs) {
+module.exports = function copyBrowserTo(root, dir) {
+    return collectBrowser(root).then(function (pkgs) {
         return rsvp.map(pkgs, collectFiles(root));
     }).then(copyFromTo(root, dir));
 };

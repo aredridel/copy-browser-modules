@@ -1,19 +1,20 @@
 {
-  "name": "copy-amd-modules",
+  "name": "copy-browser-modules",
   "version": "1.1.1",
-  "description": "A task to build AMD dependencies out into a simple tree from node_modules packages",
+  "description": "A task to build browser dependencies out into a simple tree from node_modules packages",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"
   },
   "bin": {
-    "copy-amd-modules": "copy-amd-modules.js"
+    "copy-browser-modules": "copy-browser-modules.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krakenjs/copy-amd-modules.git"
+    "url": "git+https://github.com/krakenjs/copy-browser-modules.git"
   },
   "keywords": [
+    "build",
     "amd",
     "npm",
     "node_modules",

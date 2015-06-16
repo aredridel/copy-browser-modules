@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var copyAMDTo = require('./');
+var copyBrowserTo = require('./');
 
 if (process.argv.length === 4) {
-    copyAMDTo(process.argv[2], process.argv[3]).catch(function (err) {
+    copyBrowserTo(process.argv[2], process.argv[3]).catch(function (err) {
         console.warn(err);
         process.exit(1);
     });
