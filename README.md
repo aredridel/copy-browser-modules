@@ -39,6 +39,39 @@ the root and `browserPackage` left out.
 This tool respects the `files` key, so a browser-only extract can be provided
 by providing an `browserPackage.files` property.
 
+This `package.json`
+
+```
+{
+    "name": "my-awesome-module",
+    "version": "1.0.0",
+    "files": [
+        "test.js"
+    ],
+    "description": "Test",
+    "browserPackage": {
+        "files": [
+            "browser.js"
+        ]
+    }
+}
+```
+
+Will be written out as
+
+```
+{
+    "name": "my-awesome-module",
+    "version": "1.0.0",
+    "files": [
+        "browser.js"
+    ],
+    "description": "Test"
+}
+```
+
+And the files copied will be `browser.js` not `test.js`.
+
 Overrides
 ---------
 
