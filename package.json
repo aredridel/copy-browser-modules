@@ -4,7 +4,7 @@
   "description": "A task to build browser dependencies out into a simple tree from node_modules packages",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tap test.js"
   },
   "bin": {
     "copy-browser-modules": "copy-browser-modules.js"
@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "rimraf": "^2.3.2",
-    "tape": "^4.0.0"
+    "tap": "^1.2.0"
   },
   "dependencies": {
     "copy-dir": "0.0.7",
