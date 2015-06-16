@@ -39,6 +39,9 @@ the root and `browserPackage` left out.
 This tool respects the `files` key, so a browser-only extract can be provided
 by providing an `browserPackage.files` property.
 
+Note that dependencies are resolved before `browserPackage` merging is done, so
+dependency structure cannot vary between browser and non-browser packaging.
+
 This `package.json`
 
 ```
