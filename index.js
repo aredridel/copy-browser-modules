@@ -12,11 +12,11 @@ function collectBrowser(root) {
             var out = [];
             var packages = {};
             var duplicates = {};
-            var overrides = (rootPkg.package.browser && rootPkg.package.browser.overrides) || {};
+            var overrides = (rootPkg.package.browserPackage && rootPkg.package.browserPackage.overrides) || {};
             rootPkg.children.forEach(processPackage);
 
             function processPackage(c) {
-                var browser = overrides[c.package.name] || c.package.browser || (c.package.keywords && ~c.package.keywords.indexOf("browser"));
+                var browser = overrides[c.package.name] || c.package.browserPackage || (c.package.keywords && ~c.package.keywords.indexOf("browser"));
                 if (!browser) return;
                 var pkg = typeof browser === 'object' ? extendedMinusBrowser(c.package, browser) : c.package;
                 var pkgroot = c.path;
@@ -46,7 +46,7 @@ function extendedMinusBrowser(/* ... */) {
     var out = {};
     for (var i = 0; i < arguments.length; i++) {
         for (var k in arguments[i]) {
-            if (k === 'browser') continue;
+            if (k === 'browserPackage') continue;
             out[k] = arguments[i][k];
         }
     }

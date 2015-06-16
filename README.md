@@ -31,13 +31,13 @@ Modules are expected to end up in something approaching CommonJS Packages/A
 style. That means no nested dependencies, no `node_modules`, but `package.json`
 is still used. Because we're coopting the npm registry here, sometimes we need
 different information between the node and browser versions of things. If you put
-an `browser` property in your `package.json` with a truthy value, the module
+an `browserPackage` property in your `package.json` with a truthy value, the module
 will be considered browser-friendly. If that property is set to an object, the
 written `package.json` in the built tree will have these properties merged into
-the root and `browser` left out.
+the root and `browserPackage` left out.
 
 This tool respects the `files` key, so a browser-only extract can be provided
-by providing an `browser.files` property.
+by providing an `browserPackage.files` property.
 
 Overrides
 ---------
@@ -45,12 +45,12 @@ Overrides
 The `package.json` for your app can include a section like so:
 
 ```
-    "browser": {
+    "browserPackage": {
         "overrides": {
             "packagename": {
 ```
 
-which will be used as the `browser` property for each package's `package.json`
+which will be used as the `browserPackage` property for each package's `package.json`
 instead of what's there, allowing applications to use libraries that don't
 follow the convention yet despite shipping browser modules.
 

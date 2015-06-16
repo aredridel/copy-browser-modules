@@ -2,7 +2,7 @@
   "name": "1",
   "version": "1.0.0",
   "description": "A require-js using application",
-  "browser": {
+  "browserPackage": {
       "overrides": {
           "component1": true
       }
