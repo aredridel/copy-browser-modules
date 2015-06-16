@@ -48,7 +48,7 @@ function cleanup() {
 }
 
 function checkNotExists(file) {
-    return new Promise(function (a, r) {
+    return new rsvp.Promise(function (a, r) {
         fs.stat(file, function (err) {
             if (err) {
                 if (err.code === 'ENOENT') {
@@ -64,7 +64,7 @@ function checkNotExists(file) {
 }
 
 function checkExists(file) {
-    return new Promise(function (a, r) {
+    return new rsvp.Promise(function (a, r) {
         fs.stat(file, function (err) {
             if (err) {
                 r(err);
