@@ -21,7 +21,7 @@
     "requirejs"
   ],
   "author": "Aria Stewart <ariastewart@paypal.com>",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "rimraf": "^2.3.2",
     "tape": "^4.0.0"
