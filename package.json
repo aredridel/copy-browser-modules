@@ -1,6 +1,6 @@
 {
   "name": "copy-browser-modules",
-  "version": "1.0.0-1",
+  "version": "1.0.0-2",
   "description": "A task to build browser dependencies out into a simple tree from node_modules packages",
   "main": "index.js",
   "scripts": {
