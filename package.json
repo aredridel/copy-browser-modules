@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krakenjs/copy-browser-modules.git"
+    "url": "git+https://github.com/aredridel/copy-browser-modules.git"
   },
   "keywords": [
     "build",
