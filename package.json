@@ -10,10 +10,7 @@
   "bin": {
     "copy-browser-modules": "copy-browser-modules.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/krakenjs/copy-browser-modules.git"
-  },
+  "repository": "aredridel/copy-browser-modules",
   "keywords": [
     "build",
     "amd",
