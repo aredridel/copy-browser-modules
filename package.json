@@ -10,7 +10,7 @@
   "bin": {
     "copy-browser-modules": "copy-browser-modules.js"
   },
-  "repository": "aredridel/copy-browser-modules",
+  "repository": "https://github.com/aredridel/copy-browser-modules.git",
   "keywords": [
     "build",
     "amd",
