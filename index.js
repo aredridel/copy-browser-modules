@@ -72,7 +72,7 @@ function writeJSON(file, data) {
     });
 }
 
-function copyFromTo(root, dir) {
+function copyFromTo(root, dir, each) {
     return function (pkgs) {
         return rsvp.all(pkgs.map(function (pkg) {
             var target = path.resolve(dir, pkg.name);
@@ -84,15 +84,18 @@ function copyFromTo(root, dir) {
             }).then(function () {
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
             }).then(function () {
+                if (each) {
+                    each(pkg);
+                }
                 return pkg;
             });
         }));
     };
 }
 
-module.exports = function copyBrowserTo(root, dir) {
+module.exports = function copyBrowserTo(root, dir, each) {
     return collectBrowser(root).then(function (pkgs) {
         return rsvp.map(pkgs, collectFiles(root));
-    }).then(copyFromTo(root, dir));
+    }).then(copyFromTo(root, dir, each));
 };
 
