@@ -3,8 +3,9 @@ var iferr = require('iferr');
 var rsvp = require('rsvp');
 var path = require('path');
 var selectFiles = require('./select-files');
-var copyDir = require('copy-dir');
+var vfs = require('vinyl-fs');
 var fs = require('fs');
+var map = require('map-stream');
 
 function collectBrowser(root) {
     return new rsvp.Promise(function (accept, reject) {
@@ -78,9 +79,13 @@ function copyFromTo(root, dir, each) {
             var target = path.resolve(dir, pkg.name);
             var source = path.resolve(root, pkg.location);
             return new rsvp.Promise(function (accept, reject) {
-                copyDir(source, target, function (stat, p, file) {
-                    return ~pkg.files.indexOf(file);
-                }, iferr(reject, accept));
+                vfs.src(path.join(source, '**')).pipe(map(function (file, cb) {
+                    if (~pkg.files.indexOf(path.relative(source, file.path))) {
+                        cb(null, file);
+                    } else {
+                        cb();
+                    }
+                })).pipe(vfs.dest(target)).on('finish', accept).on('error', reject);
             }).then(function () {
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
             }).then(function () {
