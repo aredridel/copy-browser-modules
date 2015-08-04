@@ -1,5 +1,8 @@
 {
   "name": "1",
   "version": "1.0.0",
-  "description": "A require-js using application"
+  "description": "A require-js using application",
+  "files": [
+    "!excluded"
+  ]
 }

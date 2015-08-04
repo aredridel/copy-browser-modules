@@ -19,7 +19,8 @@ test('copy-browser-modules', function (m) {
             t.ok(d);
             return Promise.all([
                 checkExists('tmp'),
-                checkExists('tmp/subdir/sub/deepfile.js')
+                checkExists('tmp/subdir/sub/deepfile.js'),
+                checkNotExists('tmp/subdir/excluded/deepfile2.js')
             ]);
         }).catch(t.error).finally(cleanup).finally(t.end);
     });
