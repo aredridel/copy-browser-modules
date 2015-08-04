@@ -81,7 +81,7 @@ function copyFromTo(root, dir, each) {
             var source = path.resolve(root, pkg.location);
             return new rsvp.Promise(function (accept, reject) {
                 mkdirp(target, iferr(reject, function () {
-                    new Nfstream({ path: source, package: pkg }).pipe(new fstream.Writer(target)).on('finish', accept).on('error', reject);
+                    new Nfstream({ path: source, package: pkg }).pipe(new fstream.Writer(target)).on('close', accept).on('error', reject);
                 }));
             }).then(function () {
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
