@@ -3,9 +3,10 @@ var iferr = require('iferr');
 var rsvp = require('rsvp');
 var path = require('path');
 var selectFiles = require('./select-files');
-var vfs = require('vinyl-fs');
+var Nfstream = require('fstream-npm');
+var fstream = require('fstream');
 var fs = require('fs');
-var map = require('map-stream');
+var mkdirp = require('mkdirp');
 
 function collectBrowser(root) {
     return new rsvp.Promise(function (accept, reject) {
@@ -79,13 +80,9 @@ function copyFromTo(root, dir, each) {
             var target = path.resolve(dir, pkg.name);
             var source = path.resolve(root, pkg.location);
             return new rsvp.Promise(function (accept, reject) {
-                vfs.src(path.join(source, '**')).pipe(map(function (file, cb) {
-                    if (~pkg.files.indexOf(path.relative(source, file.path))) {
-                        cb(null, file);
-                    } else {
-                        cb();
-                    }
-                })).pipe(vfs.dest(target)).on('finish', accept).on('error', reject);
+                mkdirp(target, iferr(reject, function () {
+                    new Nfstream({ path: source, package: pkg }).pipe(new fstream.Writer(target)).on('finish', accept).on('error', reject);
+                }));
             }).then(function () {
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
             }).then(function () {

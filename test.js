@@ -14,6 +14,16 @@ test('copy-browser-modules', function (m) {
         }).catch(t.error).finally(cleanup).finally(t.end);
     });
 
+    m.test('subdir', function (t) {
+        copyBrowserTo(path.resolve(__dirname, 'test-fixtures/subdir'), 'tmp').then(function (d) {
+            t.ok(d);
+            return Promise.all([
+                checkExists('tmp'),
+                checkExists('tmp/subdir/sub/deepfile.js')
+            ]);
+        }).catch(t.error).finally(cleanup).finally(t.end);
+    });
+
     m.test('nested', function (t) {
         copyBrowserTo(path.resolve(__dirname, 'test-fixtures/nested'), 'tmp').then(function (d) {
             t.ok(d);

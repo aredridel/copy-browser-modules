@@ -16,11 +16,12 @@
   },
   "repository": "https://github.com/aredridel/copy-browser-modules.git",
   "dependencies": {
+    "fstream": "^1.0.7",
+    "fstream-npm": "^1.0.4",
     "iferr": "^0.1.5",
-    "map-stream": "0.0.6",
+    "mkdirp": "^0.5.1",
     "read-package-tree": "^4.0.1",
-    "rsvp": "^3.0.18",
-    "vinyl-fs": "^1.0.0"
+    "rsvp": "^3.0.18"
   },
   "devDependencies": {
     "nyc": "^2.3.0",
