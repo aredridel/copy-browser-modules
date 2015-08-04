@@ -74,10 +74,10 @@ function writeJSON(file, data) {
     });
 }
 
-function copyFromTo(root, dir, each) {
+function copyFromTo(root, dest, each, docroot) {
     return function (pkgs) {
         return rsvp.all(pkgs.map(function (pkg) {
-            var target = path.resolve(dir, pkg.name);
+            var target = path.resolve(docroot, dest, pkg.name);
             var source = path.resolve(root, pkg.location);
             return new rsvp.Promise(function (accept, reject) {
                 mkdirp(target, iferr(reject, function () {
@@ -92,6 +92,7 @@ function copyFromTo(root, dir, each) {
                     reader.pipe(writer);
                 }));
             }).then(function () {
+                pkg.location = path.relative(docroot, target);
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
             }).then(function () {
                 if (each) {
@@ -103,9 +104,22 @@ function copyFromTo(root, dir, each) {
     };
 }
 
-module.exports = function copyBrowserTo(root, dir, each) {
+module.exports = function copyBrowserTo(options) {
+    var root, dest, each, docroot;
+    if (arguments.length > 1 && arguments.length <= 3) {
+        root = arguments[0];
+        dest = arguments[1];
+        each = arguments[2];
+        docroot = process.cwd();
+    } else {
+        root = options.src;
+        dest = options.dest;
+        each = options.each;
+        docroot = options.docRoot || process.cwd();
+    }
+
     return collectBrowser(root).then(function (pkgs) {
         return rsvp.map(pkgs, collectFiles(root));
-    }).then(copyFromTo(root, dir, each));
+    }).then(copyFromTo(root, dest, each, path.resolve(docroot)));
 };
 

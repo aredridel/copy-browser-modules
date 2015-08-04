@@ -14,7 +14,7 @@ An example:
 ```
 var copyBrowserTo = require('copy-browser-modules');
 
-copyBrowserTo(__dirname, 'public/js/components')
+copyBrowserTo({ root: __dirname, docRoot: 'public', dest: 'js/components')
     .then(function() {
         console.log("Modules copied to 'public/js/components'")
     }).catch(function (err) {
@@ -22,7 +22,9 @@ copyBrowserTo(__dirname, 'public/js/components')
         console.warn(err.stack);
     });
 ```
-.
+
+The `docRoot` is optional, but will allow you to adjust the location properties
+of the packages to match the view of the URL space as seen from the browser.
 
 Module format
 -------------
