@@ -81,7 +81,15 @@ function copyFromTo(root, dir, each) {
             var source = path.resolve(root, pkg.location);
             return new rsvp.Promise(function (accept, reject) {
                 mkdirp(target, iferr(reject, function () {
-                    new Nfstream({ path: source, package: pkg }).pipe(new fstream.Writer(target)).on('close', accept).on('error', reject);
+                    var reader = new Nfstream({ path: source, package: pkg });
+                    var writer = new fstream.Writer(target);
+                    reader.on('package', function (p) {
+                        // Clobber the files with our fixed up copy.
+                        p.files = pkg.files;
+                    });
+                    writer.on('close', accept);
+                    writer.on('error', reject);
+                    reader.pipe(writer);
                 }));
             }).then(function () {
                 return writeJSON(path.resolve(target, 'package.json'), pkg);
