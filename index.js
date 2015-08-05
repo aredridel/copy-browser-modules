@@ -116,7 +116,7 @@ module.exports = function copyBrowserTo(options) {
         root = options.src;
         dest = options.dest;
         each = options.each;
-        docroot = options.docRoot || process.cwd();
+        docroot = options.basePath || process.cwd();
     }
 
     return collectBrowser(root).then(function (pkgs) {
