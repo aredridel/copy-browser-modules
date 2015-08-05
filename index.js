@@ -71,7 +71,7 @@ function collectFiles(root) {
 
 function writeJSON(file, data) {
     return new rsvp.Promise(function (a, r) {
-        fs.writeFile(file, JSON.stringify(data), iferr(r, a));
+        fs.writeFile(file, JSON.stringify(data, null, 2), iferr(r, a));
     });
 }
 
