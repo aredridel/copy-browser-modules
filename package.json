@@ -1,6 +1,6 @@
 {
   "name": "copy-browser-modules",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "author": "Aria Stewart <ariastewart@paypal.com>",
   "description": "A task to build browser dependencies out into a simple tree from node_modules packages",
   "license": "Apache-2.0",
