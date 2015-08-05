@@ -20,7 +20,7 @@ function collectBrowser(root) {
             function processPackage(c) {
                 var browser = overrides[c.package.name] || c.package.browserPackage || (c.package.keywords && ~c.package.keywords.indexOf("browser"));
                 if (!browser) return;
-                var pkg = typeof browser === 'object' ? extendedMinusBrowser(c.package, browser) : c.package;
+                var pkg = typeof browser === 'object' ? extendedCleanedMinusBrowser(c.package, browser) : c.package;
                 var pkgroot = c.path;
 
                 if (packages[c.package.name]) {
@@ -44,11 +44,12 @@ function collectBrowser(root) {
     });
 }
 
-function extendedMinusBrowser(/* ... */) {
+function extendedCleanedMinusBrowser(/* ... */) {
     var out = {};
     for (var i = 0; i < arguments.length; i++) {
         for (var k in arguments[i]) {
             if (k === 'browserPackage') continue;
+            if (k[0] === '_') continue;
             out[k] = arguments[i][k];
         }
     }
