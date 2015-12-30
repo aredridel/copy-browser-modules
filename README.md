@@ -14,7 +14,7 @@ An example:
 ```
 var copyBrowserTo = require('copy-browser-modules');
 
-copyBrowserTo({ root: __dirname, basePath: 'public', dest: 'js/components')
+copyBrowserTo({ root: __dirname, basePath: 'public', dest: 'js/components'})
     .then(function() {
         console.log("Modules copied to 'public/js/components'")
     }).catch(function (err) {
