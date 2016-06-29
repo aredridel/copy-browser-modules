@@ -18,7 +18,7 @@ function collectBrowser(root) {
             rootPkg.children.forEach(processPackage);
 
             function processPackage(c) {
-                var browser = overrides[c.package.name] || c.package.browserPackage || (c.package.keywords && ~c.package.keywords.indexOf("browser"));
+                var browser = overrides[c.package.name] || c.package.browserPackage;
                 if (!browser) return;
                 var pkg = typeof browser === 'object' ? extendedCleanedMinusBrowser(c.package, browser) : c.package;
                 var pkgroot = c.path;
