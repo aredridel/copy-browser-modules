@@ -21,7 +21,7 @@
     "iferr": "^1.0.0",
     "mkdirp": "^0.5.1",
     "read-package-tree": "^5.2.1",
-    "rsvp": "^3.0.18"
+    "rsvp": "^4.8.2"
   },
   "devDependencies": {
     "rimraf": "^2.3.2",
