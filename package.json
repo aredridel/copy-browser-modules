@@ -18,7 +18,7 @@
   "dependencies": {
     "fstream": "^1.0.7",
     "fstream-npm": "^1.0.4",
-    "iferr": "^1.0.0",
+    "iferr": "^0.1.5",
     "mkdirp": "^0.5.1",
     "read-package-tree": "^5.2.1",
     "rsvp": "^4.8.2"
